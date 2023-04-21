@@ -7,6 +7,7 @@ from PySide6.QtCore import (
     QByteArray,
 )
 import sys
+from os import getenv
 from . import database as d
 from .utils import Utils
 
@@ -15,11 +16,11 @@ class TableModel(QAbstractTableModel):
     def __init__(self, db: d.Database, parent: QObject | None = None) -> None:
         super().__init__(parent=parent)
         self._db = db
-        self._data = self.prepareData("emp")
+        self._data = self.prepareData("driver")
 
     @Utils.override
     def headerData(
-        self,
+        self, 
         section: int,
         _: Qt.Orientation = Qt.Orientation.Horizontal,
         role: int = Qt.DisplayRole,
@@ -102,7 +103,7 @@ class Bridge(QObject):
 
     @Slot(str, str, result=bool)
     def validate(self, username: str, password: str) -> bool:
-        return username == "a" and password == "b"  # ! Make env file
+        return username == getenv("USER") and password == getenv("PASSWORD")  # ! Make env file
 
     @Slot(int, result=None)
     def updateCurrentRow(self, row: int) -> None:

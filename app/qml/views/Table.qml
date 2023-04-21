@@ -24,8 +24,8 @@ Item {
                 height: 70
 
                 ComboBox {
-                    Layout.fillWidth: true
-                    model: ["emp", "client", "work_exp", "prj_details", "emp_skill"]
+                    Layout.fillWidth: true 
+                    model: ["driver", "vehicle", "trip", "cost", "vehicle_involved", "driver_involved", "driver_phone"]
                     padding: 0
                     height: 70
                     onActivated: (index) => {

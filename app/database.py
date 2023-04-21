@@ -27,11 +27,15 @@ class Database:
         with open("app/sql/create_table.sql", "r") as f:
             sql = f.read().split(";")
 
+            for i in sql:
+                print(i)
+
             with self.conn.cursor() as cursor:
                 for x in sql[:-1]:
                     try:
                         cursor.execute(x)
-                    except odbe.DatabaseError:
+                    except odbe.DatabaseError as e:
+                        print(e)
                         print("Table already created")
                 self.conn.commit()
 
@@ -50,10 +54,3 @@ class Database:
                 f"SELECT column_name FROM USER_TAB_COLUMNS WHERE table_name='{table.upper()}'"
             ).fetchall()
             return list([i[0] for i in rows])
-
-    def execute(self) -> None:
-        with self.conn.cursor() as cursor:
-            cursor.execute("INSERT INTO a VALUES(:1)", (1,))
-
-            for row in cursor.execute("SELECT * FROM a"):
-                print(row)

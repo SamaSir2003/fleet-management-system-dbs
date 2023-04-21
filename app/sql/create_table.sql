@@ -17,7 +17,7 @@ CREATE TABLE
         regyear VARCHAR(4) CONSTRAINT YEAR_FORMAT CHECK (
             regyear LIKE '19__'
             OR regyear LIKE '2___'
-        ),
+        )
     );
 
 CREATE TABLE
@@ -29,9 +29,8 @@ CREATE TABLE
         destination VARCHAR(20),
         distance NUMBER(20),
         passengercount NUMBER(10),
-        CONSTRAINT END_GREATER_START CHECK (enddate >= startdate);
-
-);
+        CONSTRAINT END_GREATER_START CHECK (enddate >= startdate)
+    );
 
 CREATE TABLE
     cost(
@@ -44,21 +43,21 @@ CREATE TABLE
 
 CREATE TABLE
     vehicle_involved(
-        tripid VARCHAR2(10) CONSTRAINT TRIPID_FK REFERENCES trip,
+        tripid VARCHAR2(10) CONSTRAINT TRIPID_FOR_VI_FK REFERENCES trip,
         vehicleid VARCHAR2(10) CONSTRAINT VEHICLEID_FK REFERENCES vehicle,
         CONSTRAINT VI_PK PRIMARY KEY (tripid, vehicleid)
     );
 
 CREATE TABLE
     driver_involved(
-        tripid VARCHAR2(10) CONSTRAINT TRIPID_FK REFERENCES trip,
+        tripid VARCHAR2(10) CONSTRAINT TRIPID_FOR_DI_FK REFERENCES trip,
         driverid VARCHAR2(10) CONSTRAINT DRIVERID_FK REFERENCES driver,
         CONSTRAINT DI_PK PRIMARY KEY (tripid, driverid)
     );
 
 CREATE TABLE
     driver_phone(
-        driverid VARCHAR2(10) CONSTRAINT DRIVERID_FK REFERENCES driver,
+        driverid VARCHAR2(10) CONSTRAINT DRIVERID_FOR_DP_FK REFERENCES driver,
         phone VARCHAR2(10) CONSTRAINT TEN_DIGIT CHECK (phone LIKE '__________'),
-        CONSTRAINT DI_PK PRIMARY KEY (phone, driverid)
+        CONSTRAINT DP_PK PRIMARY KEY (phone, driverid)
     );
